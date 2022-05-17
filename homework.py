@@ -19,7 +19,6 @@ class InfoMessage:
 
     def get_message(self) -> str:
         """Вернуть сообщение о тренировке"""
-
         return self.MESSAGE.format(**asdict(self))
 
 
@@ -41,22 +40,18 @@ class Training:
 
     def get_distance(self) -> float:
         """Получить дистанцию в км."""
-
         return self.action * self.LEN_STEP / self.M_IN_KM
 
     def get_mean_speed(self) -> float:
         """Получить среднюю скорость движения."""
-
         return self.get_distance() / self.duration
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
-
-        raise NotImplementedError
+        raise NotImplementedError("Калории не подсчитаны")
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
-
         return InfoMessage(
             type(self).__name__,
             self.duration,
@@ -72,7 +67,6 @@ class Running(Training):
     SECOND_CAL: int = 20
 
     def get_spent_calories(self) -> float:
-
         return ((self.FIRST_CAL
                 * self.get_mean_speed()
                 - self.SECOND_CAL)
@@ -143,20 +137,17 @@ class Swimming(Training):
 
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
-
-    type_dict = {
+    parametrs_workout: dict = {
         'SWM': Swimming,
         'RUN': Running,
         'WLK': SportsWalking}
-    if workout_type in type_dict.keys():
-        return type_dict[workout_type](*data)
-    else:
-        raise ValueError
+    if workout_type not in parametrs_workout.keys():
+        raise ValueError("Программный сбой")
+    return parametrs_workout[workout_type](*data)
 
 
 def main(training: Training) -> None:
     """Главная функция."""
-
     info = training.show_training_info()
     print(info.get_message())
 
