@@ -19,10 +19,6 @@ class InfoMessage:
 
     def get_message(self) -> str:
         """Вернуть сообщение о тренировке"""
-<<<<<<< HEAD
-=======
-
->>>>>>> 1524fda72fea01e6a955040b30c751ddb8aff032
         return self.MESSAGE.format(**asdict(self))
 
 
@@ -54,16 +50,10 @@ class Training:
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
-<<<<<<< HEAD
         raise NotImplementedError("Калории не подсчитаны")
-=======
-
-        raise NotImplementedError
->>>>>>> 1524fda72fea01e6a955040b30c751ddb8aff032
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
-
         return InfoMessage(
             type(self).__name__,
             self.duration,
@@ -79,7 +69,6 @@ class Running(Training):
     SECOND_CAL: int = 20
 
     def get_spent_calories(self) -> float:
-
         return ((self.FIRST_CAL
                 * self.get_mean_speed()
                 - self.SECOND_CAL)
@@ -150,7 +139,6 @@ class Swimming(Training):
 
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
-<<<<<<< HEAD
     parametrs_workout: dict = {
         'SWM': Swimming,
         'RUN': Running,
@@ -158,17 +146,6 @@ def read_package(workout_type: str, data: list) -> Training:
     if workout_type not in parametrs_workout.keys():
         raise ValueError("Программный сбой")
     return parametrs_workout[workout_type](*data)
-=======
-
-    type_dict = {
-        'SWM': Swimming,
-        'RUN': Running,
-        'WLK': SportsWalking}
-    if workout_type in type_dict.keys():
-        return type_dict[workout_type](*data)
-    else:
-        raise ValueError
->>>>>>> 1524fda72fea01e6a955040b30c751ddb8aff032
 
 
 def main(training: Training) -> None:
