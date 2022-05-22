@@ -1,4 +1,5 @@
 from dataclasses import asdict, dataclass
+from typing import Dict, Type
 
 
 @dataclass
@@ -48,7 +49,7 @@ class Training:
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
-        raise NotImplementedError("Калории не подсчитаны")
+        raise NotImplementedError(f"Калории не подсчитаны {Training}")
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
@@ -137,12 +138,12 @@ class Swimming(Training):
 
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
-    parametrs_workout: dict = {
+    parametrs_workout: Dict[str, Type[Training]] = {
         'SWM': Swimming,
         'RUN': Running,
         'WLK': SportsWalking}
     if workout_type not in parametrs_workout.keys():
-        raise ValueError("Программный сбой")
+        raise ValueError("Программный сбой".join(parametrs_workout))
     return parametrs_workout[workout_type](*data)
 
 
