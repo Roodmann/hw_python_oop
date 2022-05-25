@@ -49,7 +49,8 @@ class Training:
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
-        raise NotImplementedError(f"Калории не подсчитаны {Training}")
+        raise NotImplementedError(
+            f"Калории не подсчитаны {type(self).__name__}")
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
@@ -143,13 +144,13 @@ def read_package(workout_type: str, data: list) -> Training:
         'RUN': Running,
         'WLK': SportsWalking}
     if workout_type not in parametrs_workout.keys():
-        raise ValueError("Программный сбой".join(parametrs_workout))
+        raise ValueError(f'Программный сбой {",".join(parametrs_workout)}')
     return parametrs_workout[workout_type](*data)
 
 
-def main(training: Training) -> None:
+def main(parametrs_workout: Training) -> None:
     """Главная функция."""
-    info = training.show_training_info()
+    info = parametrs_workout.show_training_info()
     print(info.get_message())
 
 
